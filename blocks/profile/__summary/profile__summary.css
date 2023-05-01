@@ -1,0 +1,13 @@
+.profile__summary {
+    display: flex;
+    gap: 30px;
+    border:1px solid pink;
+    align-items: center;
+}
+
+@media screen and (max-width: 320px) {
+    .profile__summary {
+        flex-direction: column;
+        gap: 22.25px;
+    }
+}
