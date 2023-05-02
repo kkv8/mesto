@@ -1,6 +1,10 @@
 .edit-button {
     width: 24px;
     height: 24px;
+    align-self: center;
+    border: none;
+    background: none;
+    background-image: url(../../images/Edit\ Button.svg);
 }
 
 @media screen and (max-width: 320px) {

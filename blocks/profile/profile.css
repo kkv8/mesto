@@ -3,17 +3,18 @@
     max-width: 880px;
     margin: auto;
     color: white;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(min-content, max-content)) auto;
     align-items: center;
+    column-gap: 30px;
     margin-top: 40px;
 }
 
 @media screen and (max-width: 320px) {
     .profile {
-        max-width: 282px;
         margin-top: 42px;
+        display: flex;
         flex-direction: column;
-        gap: 36px;
+        justify-content: space-between;
     }
 }
