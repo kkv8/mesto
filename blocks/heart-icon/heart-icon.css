@@ -1,0 +1,8 @@
+.heart-icon {
+    background: none;
+    background-image: url(../../images/heart-icon.svg);
+    width: 22px;
+    height: 19px;
+    border: none;
+    margin-right: 15px;
+}

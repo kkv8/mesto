@@ -5,6 +5,7 @@
     border: none;
     background: none;
     background-image: url(../../images/Add\ Button.svg);
+    cursor: pointer;
 }
 
 @media screen and (max-width: 320px) {
