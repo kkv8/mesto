@@ -5,4 +5,10 @@
     height: 19px;
     border: none;
     margin-right: 15px;
+    transition: opacity 2s linear;
+    cursor: pointer;
+}
+
+.heart-icon:hover {
+    opacity: 0.5;
 }

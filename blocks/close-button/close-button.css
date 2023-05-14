@@ -8,6 +8,11 @@
     top: -40px;
     right: -40px;
     cursor: pointer;
+    transition: opacity 2s linear;
+}
+
+.close-button:hover {
+    opacity: 0.6;
 }
 
 @media screen and (max-width: 320px) {
