@@ -1,17 +1,21 @@
 .profile {
-    border: 1px solid red;
     max-width: 880px;
     margin: auto;
     color: white;
     display: grid;
     grid-template-columns: repeat(2, minmax(min-content, max-content)) auto;
+    grid-template-rows: 120px;
     align-items: center;
     column-gap: 30px;
     margin-top: 40px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 320px) {
     .profile {
+        height: 286px;
         margin-top: 42px;
         display: flex;
         flex-direction: column;
