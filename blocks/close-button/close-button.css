@@ -18,8 +18,8 @@
 @media screen and (max-width: 320px) {
     .close-button {
         width: 20px;
-        height: 20px; 
-        right: 0px; 
+        height: 20px;
+        right: 0px;
         background-size: contain;
     }
 }
