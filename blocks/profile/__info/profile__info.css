@@ -4,14 +4,16 @@
     column-gap: 18px;
     grid-template-rows: repeat(2, auto);
     row-gap: 16px;
+    max-width: 500px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 590px) {
     .profile__info {
        display: flex;
        flex-wrap: wrap;
        width: 217px;
        gap: 0;
        justify-content: space-between;
+       margin-left: 27px;
     }
 }

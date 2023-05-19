@@ -12,63 +12,67 @@
             <div class="logo"></div>
         </header>
 
-        <section class="profile">
+        <main>
+            <section class="profile">
                 <img class="profile__avatar" src="./images/profile__avatar.jpg" alt="аватарка профиля">
                 <div class="profile__info">
-                    <h2 class="profile__name">Жак-Ив Кусто</h2>
-                    <button type="button" class="edit-button"></button>
+                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <button type="button" class="profile__edit-button"></button>
                     <p class="profile__description">Любитель собак</p>
                 </div>
-                <button type="button" class="add-button"></button>
-        </section>
+                <button type="button" class="profile__add-button"></button>
+            </section>
       
-        <section class="elements">
-            <div class="element">
-                <img class="element__image" src="./images/elements-1.jpg">
-                <h2 class="element__title">Гас и Флейк</h2>
-                <button type="button" class="heart-icon"></button>
-            </div>
-            <div class="element">
-                <img class="element__image" src="./images/elements-2.jpg">
-                <h2 class="element__title">Дэйзи</h2>
-                <button type="button" class="heart-icon"></button>
-            </div>
-            <div class="element">
-                <img class="element__image" src="./images/elements-3.jpg">
-                <h2 class="element__title">Самсон</h2>
-                <button type="button" class="heart-icon"></button>
-            </div>
-            <div class="element">
-                <img class="element__image" src="./images/elements-4.jpg">
-                <h2 class="element__title">Лаки</h2>
-                <button type="button" class="heart-icon"></button>
-            </div>
-            <div class="element">
-                <img class="element__image" src="./images/elements-5.jpg">
-                <h2 class="element__title">Рокси</h2>
-                <button type="button" class="heart-icon"></button>
-            </div>
-            <div class="element">
-                <img class="element__image" src="./images/elements-6.jpg">
-                <h2 class="element__title">Ханни</h2>
-                <button type="button" class="heart-icon"></button>
-            </div>
-        </section>
+            <section class="elements">
+                <article class="element">
+                    <img class="element__image" src="./images/elements-1.jpg" alt="белая собака и рыжая кошка лежат на траве">
+                    <h2 class="element__title">Гас и Флейк</h2>
+                    <button type="button" class="heart-icon"></button>
+                </article>
+                <article class="element">
+                    <img class="element__image" src="./images/elements-2.jpg" alt="щенок засыпает в голубом пледе">
+                    <h2 class="element__title">Дэйзи</h2>
+                    <button type="button" class="heart-icon"></button>
+                </article>
+                <article class="element">
+                    <img class="element__image" src="./images/elements-3.jpg" alt="собака сидит среди желтых цветов">
+                    <h2 class="element__title">Самсон</h2>
+                    <button type="button" class="heart-icon"></button>
+                </article>
+                <article class="element">
+                    <img class="element__image" src="./images/elements-4.jpg" alt="щенок овчарки отдыхает">
+                    <h2 class="element__title">Лаки</h2>
+                    <button type="button" class="heart-icon"></button>
+                </article>
+                <article class="element">
+                    <img class="element__image" src="./images/elements-5.jpg" alt="черная собака зевает">
+                    <h2 class="element__title">Рокси</h2>
+                    <button type="button" class="heart-icon"></button>
+                </article>
+                <article class="element">
+                    <img class="element__image" src="./images/elements-6.jpg" alt="щенок в цветном ошейнике улыбается">
+                    <h2 class="element__title">Ханни</h2>
+                    <button type="button" class="heart-icon"></button>
+                </article>
+            </section>
+        </main>
 
         <footer class="footer">
             <p class="footer__copyright">© 2020 Mesto Russia</p>
         </footer>
 
-        <form class="popup">
+        <div class="popup">
             <div class="popup__container">
-                <button class="close-button"></button>
+                <button class="popup__close-button" type="reset"></button>
                 <h3 class="popup__title">Редактировать профиль</h3>
-                <input type="text" class="popup__name">
-                <input type="text" class="popup__about">
-                <button class="save-button" type="submit" >Сохранить</button>
+                <form name="profile-info">
+                    <input type="text" name="user-name" class="popup__input popup__input_type_name">
+                    <input type="text" name="user-about" class="popup__input popup__input_type_about">
+                    <button class="popup__save-button" type="submit" >Сохранить</button>
+                </form>
             </div>
-        </form>
-        <script src="./scripts/script.js"></script>
+        </div>
+        <script src="./scripts/index.js"></script>
     </body>
 
 </html>
