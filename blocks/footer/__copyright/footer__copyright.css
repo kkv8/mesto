@@ -6,7 +6,30 @@
     line-height: 22px;
     color: #545454;
     margin: 0;
-    margin-left: 200px;
+}
+
+@media screen and (max-width: 940px) {
+    .footer__copyright {
+        margin-left: 70px;
+    }
+}
+
+@media screen and (max-width: 815px) {
+    .footer__copyright {
+        margin-left: 54px;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .footer__copyright {
+        margin-left: 33px;
+    }
+}
+
+@media screen and (max-width: 656px) {
+    .footer__copyright {
+        margin-left: 14px;
+    }
 }
 
 @media screen and (max-width: 590px) {
