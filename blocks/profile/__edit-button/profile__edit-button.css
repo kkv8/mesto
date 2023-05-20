@@ -6,7 +6,7 @@
     background: none;
     background: url(../../../images/edit-button.svg) no-repeat center;
     cursor: pointer;
-    transition: opacity 2s linear;
+    transition: opacity .3s linear;
 }
 
 .profile__edit-button:hover {

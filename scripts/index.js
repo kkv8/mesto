@@ -5,7 +5,7 @@ let profileName = document.querySelector('.profile__name')
 let popupAbout = document.querySelector('.popup__input_type_about')
 let profileDescription = document.querySelector('.profile__description')
 let closeButton = document.querySelector('.popup__close-button')
-let saveButton = document.querySelector('.popup__save-button')
+let profileForm = document.querySelector('.profile-form')
 
 function openPopup() {
     popup.classList.add('popup_opened')
@@ -26,4 +26,4 @@ function savePopup (evt) {
 
 editButton.addEventListener('click', openPopup) 
 closeButton.addEventListener ('click', closePopup)
-popup.addEventListener ('submit', savePopup)
+profileForm.addEventListener ('submit', savePopup)

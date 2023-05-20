@@ -23,7 +23,7 @@
                 <button type="button" class="profile__add-button"></button>
             </section>
       
-            <section class="elements">
+            <section class="elements" aria-label="элементы">
                 <article class="element">
                     <img class="element__image" src="./images/elements-1.jpg" alt="белая собака и рыжая кошка лежат на траве">
                     <h2 class="element__title">Гас и Флейк</h2>
@@ -58,14 +58,14 @@
         </main>
 
         <footer class="footer">
-            <p class="footer__copyright">© 2020 Mesto Russia</p>
+            <p class="footer__copyright">© 2023 Mesto Russia</p>
         </footer>
 
         <div class="popup">
             <div class="popup__container">
-                <button class="popup__close-button" type="reset"></button>
+                <button class="popup__close-button" type="button"></button>
                 <h3 class="popup__title">Редактировать профиль</h3>
-                <form name="profile-info">
+                <form name="profile-info" class="profile-form">
                     <input type="text" name="user-name" class="popup__input popup__input_type_name">
                     <input type="text" name="user-about" class="popup__input popup__input_type_about">
                     <button class="popup__save-button" type="submit" >Сохранить</button>

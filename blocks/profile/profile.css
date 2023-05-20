@@ -13,8 +13,16 @@
     overflow: hidden;
 }
 
+@media screen and (max-width: 910px) {
+    .profile {
+        margin-left: 27px;
+        margin-right: 27px;
+    }
+}
+
 @media screen and (max-width: 590px) {
     .profile {
+        margin: 0;
         height: 286px;
         margin-top: 42px;
         display: flex;

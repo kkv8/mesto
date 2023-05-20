@@ -1,6 +1,7 @@
 .heart-icon {
     background: none;
     background-image: url(../../images/heart-icon.svg);
+    background-repeat: no-repeat;
     width: 22px;
     height: 19px;
     border: none;

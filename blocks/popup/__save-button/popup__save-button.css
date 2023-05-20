@@ -6,21 +6,20 @@
     background-color: #000000;
     color: white;
     border-radius: 2px;
-    font-family: 'Inter';
+    font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
     text-align: center;
     cursor: pointer;
-    transition: opacity 2s linear;
 }
 
 .popup__save-button:hover {
-    opacity: 0.8;
+    background-color: rgba(0, 0, 0, .8);
  }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 540px) {
     .popup__save-button {
         font-size: 14px;
         line-height: 17px;
