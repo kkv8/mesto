@@ -24,36 +24,6 @@
             </section>
       
             <section class="elements" aria-label="элементы">
-                <article class="element">
-                    <img class="element__image" src="./images/elements-1.jpg" alt="белая собака и рыжая кошка лежат на траве">
-                    <h2 class="element__title">Гас и Флейк</h2>
-                    <button type="button" class="heart-icon"></button>
-                </article>
-                <article class="element">
-                    <img class="element__image" src="./images/elements-2.jpg" alt="щенок засыпает в голубом пледе">
-                    <h2 class="element__title">Дэйзи</h2>
-                    <button type="button" class="heart-icon"></button>
-                </article>
-                <article class="element">
-                    <img class="element__image" src="./images/elements-3.jpg" alt="собака сидит среди желтых цветов">
-                    <h2 class="element__title">Самсон</h2>
-                    <button type="button" class="heart-icon"></button>
-                </article>
-                <article class="element">
-                    <img class="element__image" src="./images/elements-4.jpg" alt="щенок овчарки отдыхает">
-                    <h2 class="element__title">Лаки</h2>
-                    <button type="button" class="heart-icon"></button>
-                </article>
-                <article class="element">
-                    <img class="element__image" src="./images/elements-5.jpg" alt="черная собака зевает">
-                    <h2 class="element__title">Рокси</h2>
-                    <button type="button" class="heart-icon"></button>
-                </article>
-                <article class="element">
-                    <img class="element__image" src="./images/elements-6.jpg" alt="щенок в цветном ошейнике улыбается">
-                    <h2 class="element__title">Ханни</h2>
-                    <button type="button" class="heart-icon"></button>
-                </article>
             </section>
         </main>
 
@@ -61,17 +31,46 @@
             <p class="footer__copyright">© 2023 Mesto Russia</p>
         </footer>
 
-        <div class="popup">
+        <div class="popup popup_type_edit-profile">
             <div class="popup__container">
                 <button class="popup__close-button" type="button"></button>
                 <h3 class="popup__title">Редактировать профиль</h3>
-                <form name="profile-info" class="profile-form">
+                <form name="profile-info" class="profile-form edit-form">
                     <input type="text" name="user-name" class="popup__input popup__input_type_name">
                     <input type="text" name="user-about" class="popup__input popup__input_type_about">
-                    <button class="popup__save-button" type="submit" >Сохранить</button>
+                    <button class="popup__save-button" type="submit">Сохранить</button>
                 </form>
             </div>
         </div>
+
+        <div class="popup popup_type_add-card">
+            <div class="popup__container">
+                <button class="popup__close-button" type="button"></button>
+                <h3 class="popup__title">Новое место</h3>
+                <form name="profile-info" class="profile-form card-form">
+                    <input type="text" name="card-title" placeholder='Название' class="popup__input popup__input_type_title">
+                    <input type="text" name="card-link" placeholder='Ссылка на картинку' id="cardLink" class="popup__input popup__input_type_link">
+                    <button class="popup__save-button" type="submit">Создать</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="popup popup_type_big-picture">
+            <div class="popup__picture-container">
+                <button class="popup__close-button" type="button"></button>
+                <img class="big-picture">
+                <h3 class="big-picture-title"></h3>
+            </div>
+        </div>
+    
+        <template id="card-template">
+                <article class="element">
+                    <button type="button" class="trash-icon"></button>
+                    <img class="element__image">
+                    <h2 class="element__title"></h2>
+                    <button type="button" class="heart-icon"></button>
+                </article>
+        </template>
         <script src="./scripts/index.js"></script>
     </body>
 
