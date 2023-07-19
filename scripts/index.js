@@ -11,32 +11,32 @@ const addButton = document.querySelector('.profile__add-button')
 const initialCards = [
   {
     name: 'Гас и Флейк',
-    link: 'https://raw.githubusercontent.com/kkv8/mesto/main/images/elements-1.jpg',
+    link: 'https://ltdfoto.ru/images/2023/07/19/elements-1.jpg',
     alt: 'белая собака и рыжая кошка лежат на траве'
   },
   {
     name: 'Дэйзи',
-    link: 'https://raw.githubusercontent.com/kkv8/mesto/main/images/elements-2.jpg',
+    link: 'https://ltdfoto.ru/images/2023/07/19/elements-2.jpg',
     alt: 'щенок засыпает в голубом пледе'
   },
   {
     name: 'Самсон',
-    link: 'https://raw.githubusercontent.com/kkv8/mesto/main/images/elements-3.jpg',
+    link: 'https://ltdfoto.ru/images/2023/07/19/elements-3.jpg',
     alt: 'собака сидит среди желтых цветов'
   },
   {
     name: 'Лаки',
-    link: 'https://raw.githubusercontent.com/kkv8/mesto/main/images/elements-4.jpg',
+    link: 'https://ltdfoto.ru/images/2023/07/19/elements-4.jpg',
     alt: 'щенок овчарки отдыхает'
   },
   {
     name: 'Рокси',
-    link: 'https://raw.githubusercontent.com/kkv8/mesto/main/images/elements-5.jpg',
+    link: 'https://ltdfoto.ru/images/2023/07/19/elements-5.jpg',
     alt: 'черная собака зевает'
   },
   {
     name: 'Ханни',
-    link: 'https://raw.githubusercontent.com/kkv8/mesto/main/images/elements-6.jpg',
+    link: 'https://ltdfoto.ru/images/2023/07/19/elements-6.jpg',
     alt: 'щенок в цветном ошейнике улыбается'
   }
 ]; 
