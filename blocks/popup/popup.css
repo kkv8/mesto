@@ -1,11 +1,13 @@
 .popup {  
-    position: fixed;
     visibility: hidden;
-    transition: opacity 2s linear;
+    opacity: 0;
+    position: fixed;
+    z-index: 999;
     background: rgba(0, 0, 0, 0.5);
     top: 0;
     left: 0;
-    z-index: 999;
     width: 100%;
     height: 100%;
+    display: flex;
+    transition: visibility .5s, opacity .2s linear;
 }

@@ -8,39 +8,6 @@ const profileDescription = document.querySelector(".profile__description");
 const formEdit = document.querySelector(".edit-form");
 const buttonAdd = document.querySelector(".profile__add-button");
 
-const initialCards = [
-  {
-    name: "Гас и Флейк",
-    link: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1886&q=80",
-    alt: "белая собака и рыжая кошка лежат на траве",
-  },
-  {
-    name: "Дэйзи",
-    link: "https://images.unsplash.com/photo-1618718547092-8c8927bb8d4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    alt: "щенок засыпает в голубом пледе",
-  },
-  {
-    name: "Самсон",
-    link: "https://images.unsplash.com/photo-1583160247711-2191776b4b91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
-    alt: "собака сидит среди желтых цветов",
-  },
-  {
-    name: "Лаки",
-    link: "https://images.unsplash.com/photo-1578362613743-cb09ce05275d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
-    alt: "щенок овчарки отдыхает",
-  },
-  {
-    name: "Рокси",
-    link: "https://images.unsplash.com/photo-1503595855261-9418f48a991a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80",
-    alt: "черная собака зевает",
-  },
-  {
-    name: "Ханни",
-    link: "https://images.unsplash.com/photo-1600804340584-c7db2eacf0bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80",
-    alt: "щенок в цветном ошейнике улыбается",
-  },
-];
-
 const buttonsClose = Array.from(
   document.querySelectorAll(".popup__close-button")
 );
@@ -51,73 +18,85 @@ const inputLink = document.querySelector(".popup__input_type_link");
 const inputTitle = document.querySelector(".popup__input_type_title");
 const popupBigPicture = document.querySelector(".popup_type_big-picture");
 
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+const popupBigPictureImage = popupBigPicture.querySelector(".big-picture")
+const popupBigPictureTitle = popupBigPicture.querySelector(".big-picture-title")
+
+const popupList = Array.from(document.querySelectorAll('.popup'));
+popupList.forEach((popup) => {
+  popup.addEventListener('click', function(evt) {
+    if (evt.target === popup) {
+      closePopup(popup)
+    }
+  })
+})
+
+initialCards.forEach(function (item) {
+  const card = createCard(item);
+  renderCard(card, cardElements);
+});
+
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  closePopupEsc(popup);
-  closePopupOverlay(popup);
+  document.addEventListener("keydown", bindClosePopupByEscListener)
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", bindClosePopupByEscListener)
 }
 
-function closePopupEsc(popup) {
-  document.addEventListener("keydown", function (evt) {
-    if (evt.key === "Escape") {
-      closePopup(popup);
-    }
-  });
+function bindClosePopupByEscListener (evt) {
+  if (evt.key === "Escape") {
+    popupList.forEach((popup) => {
+      closePopup(popup)
+    })
+  }
 }
 
-function closePopupOverlay(popup) {
-  popup.addEventListener("click", function (evt) {
-    if (evt.target === popup) {
-      closePopup(popup);
-    }
-  });
-}
-
-function savePopup(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = inputProfileName.value;
   profileDescription.textContent = inputAbout.value;
   closePopup(popupEditProfile);
 }
 
-function deleteCard(evt) {
-  const element = evt.target.closest(".element");
-  element.remove();
-}
-
-function like(evt) {
-  evt.target.classList.toggle("heart-icon_active");
-}
-
 function renderCard(card, container) {
   container.prepend(card);
 }
 
-function createCard(array) {
+function createCard(cardData) {
   const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
   const cardElementImage = cardElement.querySelector(".element__image");
-  cardElement.querySelector(".element__title").textContent = array.name;
-  cardElementImage.src = array.link;
-  cardElementImage.alt = array.alt;
+  cardElement.querySelector(".element__title").textContent = cardData.name;
+  cardElementImage.src = cardData.link;
+  cardElementImage.alt = cardData.alt;
   cardElement
     .querySelector(".trash-icon")
-    .addEventListener("click", deleteCard);
+    .addEventListener("click", () => {
+      cardElement.remove()
+    });
 
-  const cardLike = cardElement.querySelector(".heart-icon");
-  cardLike.addEventListener("click", like);
+    const cardLike = cardElement.querySelector(".heart-icon");
+  cardLike.addEventListener("click", () => {
+    cardLike.classList.toggle("heart-icon_active");
+  });
 
   const cardImage = cardElement.querySelector(".element__image");
   cardImage.addEventListener("click", function () {
     openPopup(popupBigPicture);
-    popupBigPicture.querySelector(".big-picture").src = array.link;
-    popupBigPicture.querySelector(".big-picture-title").textContent =
-      array.name;
-    popupBigPicture.querySelector(".big-picture").alt = array.alt;
-    popupBigPicture.style.background = "rgba(0, 0, 0, 0.8)";
+    popupBigPictureImage.src = cardData.link;
+    popupBigPictureTitle.textContent =
+      cardData.name;
+      popupBigPictureImage.alt = cardData.alt;
   });
   return cardElement;
 }
@@ -128,6 +107,7 @@ buttonsClose.forEach(function (item) {
     closePopup(popup);
   });
 });
+
 
 buttonAdd.addEventListener("click", function () {
   openPopup(popupAddCard);
@@ -140,33 +120,20 @@ cardForm.addEventListener("submit", (evt) => {
     link: inputLink.value,
     alt: inputTitle.value,
   };
-
-  inputTitle.value = "";
-  inputLink.value = "";
-
+  cardForm.reset()
   renderCard(createCard(newCard), cardElements);
   closePopup(popupAddCard);
 });
 
-initialCards.forEach(function (item) {
-  const card = createCard(item);
-  renderCard(card, cardElements);
-});
 
-popupEditButton.addEventListener("click", function () {
+const handleEditButtonClick = () => {
   openPopup(popupEditProfile);
   inputProfileName.value = profileName.textContent;
   inputAbout.value = profileDescription.textContent;
-});
-formEdit.addEventListener("submit", savePopup);
+}
 
-const validationConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
+popupEditButton.addEventListener("click", handleEditButtonClick);
+formEdit.addEventListener("submit", handleProfileFormSubmit);
+
 
 enableValidation(validationConfig);

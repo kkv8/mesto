@@ -6,8 +6,7 @@
     letter-spacing: 0em;
     text-align: left;
     color: red;
-}
-
-.popup__error_visible:last-of-type {
-    margin-bottom:1px;
+    display: inline-block;
+    min-height: 30px;
+    border:1px solid violet;
 }
