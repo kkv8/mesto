@@ -6,7 +6,7 @@
     letter-spacing: 0em;
     text-align: left;
     color: red;
-    display: inline-block;
-    min-height: 30px;
+    display: block;
+    height: 30px;
     margin: 5px 0 0 0;
 }
