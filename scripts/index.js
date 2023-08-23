@@ -37,8 +37,13 @@ popupList.forEach((popup) => {
   });
 });
 
+function createNewCard (obj, template, listener) {
+  const card = new Card(obj, template, listener);
+  return card
+}
+
 initialCards.forEach(function (item) {
-  const card = new Card(item.name, item.link, item.src);
+  const card = createNewCard(item, '.card-template_type_default', handleCardClick)
   const cardElement = card.generateCard();
 
   renderCard(cardElement, cardElements);
@@ -73,8 +78,8 @@ function handleProfileFormSubmit(evt) {
 }
 
 buttonsClose.forEach(function (item) {
+  const popup = item.closest(".popup");
   item.addEventListener("click", function () {
-    const popup = item.closest(".popup");
     closePopup(popup);
   });
 });
@@ -85,8 +90,7 @@ buttonAdd.addEventListener("click", function () {
 
 cardForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
-
-  const newCard = new Card(inputTitle.value, inputLink.value, inputTitle.value);
+  const newCard = createNewCard({name: inputTitle.value, link: inputLink.value, alt: inputTitle.value}, '.card-template_type_default', handleCardClick)
   cardForm.reset();
 
   renderCard(newCard.generateCard(), cardElements);
@@ -99,6 +103,15 @@ const handleEditButtonClick = () => {
   inputProfileName.value = profileName.textContent;
   inputAbout.value = profileDescription.textContent;
 };
+
+function handleCardClick (name, link, alt) {
+  const popupBigPicture = document.querySelector(".popup_type_big-picture");
+  const popupBigPictureImage = popupBigPicture.querySelector(".big-picture");
+  openPopup(popupBigPicture);
+  popupBigPictureImage.src = link
+  popupBigPicture.querySelector(".big-picture-title").textContent = name;
+  popupBigPictureImage.alt = name;
+}
 
 popupEditButton.addEventListener("click", handleEditButtonClick);
 formEdit.addEventListener("submit", handleProfileFormSubmit);
