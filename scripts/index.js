@@ -37,16 +37,19 @@ popupList.forEach((popup) => {
   });
 });
 
-function createNewCard (obj, template, listener) {
+function createNewCard(obj, template, listener) {
   const card = new Card(obj, template, listener);
-  return card
+  return card.generateCard()
 }
 
 initialCards.forEach(function (item) {
-  const card = createNewCard(item, '.card-template_type_default', handleCardClick)
-  const cardElement = card.generateCard();
-
-  renderCard(cardElement, cardElements);
+  const card = createNewCard(
+    item,
+    ".card-template_type_default",
+    handleCardClick
+  );
+  
+  renderCard(card, cardElements);
 });
 
 function renderCard(card, container) {
@@ -90,10 +93,14 @@ buttonAdd.addEventListener("click", function () {
 
 cardForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  const newCard = createNewCard({name: inputTitle.value, link: inputLink.value, alt: inputTitle.value}, '.card-template_type_default', handleCardClick)
+  const newCard = createNewCard(
+    { name: inputTitle.value, link: inputLink.value, alt: inputTitle.value },
+    ".card-template_type_default",
+    handleCardClick
+  );
   cardForm.reset();
 
-  renderCard(newCard.generateCard(), cardElements);
+  renderCard(newCard, cardElements);
 
   closePopup(popupAddCard);
 });
@@ -104,11 +111,11 @@ const handleEditButtonClick = () => {
   inputAbout.value = profileDescription.textContent;
 };
 
-function handleCardClick (name, link, alt) {
+function handleCardClick(name, link, alt) {
   const popupBigPicture = document.querySelector(".popup_type_big-picture");
   const popupBigPictureImage = popupBigPicture.querySelector(".big-picture");
   openPopup(popupBigPicture);
-  popupBigPictureImage.src = link
+  popupBigPictureImage.src = link;
   popupBigPicture.querySelector(".big-picture-title").textContent = name;
   popupBigPictureImage.alt = name;
 }

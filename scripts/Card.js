@@ -1,13 +1,12 @@
-// import openPopup from "./index.js";
 class Card {
-    constructor({name, link, alt}, templateSelector, handleCardClick) {
+  constructor({ name, link, alt }, templateSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._alt = alt;
     this._templateSelector = templateSelector;
     this._cardElement = this._getTemplate();
-    this._cardElementImage = this._cardElement.querySelector('.element__image')
-    this._handleCardClick = handleCardClick
+    this._cardElementImage = this._cardElement.querySelector(".element__image");
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -39,17 +38,15 @@ class Card {
       cardLike.classList.toggle("heart-icon_active");
     });
 
-    this._cardElementImage.addEventListener('click', () => {
+    this._cardElementImage.addEventListener("click", () => {
       this._handleCardClick(this._name, this._link, this._alt);
     });
   }
 
-
-
   generateCard() {
-    this._setData(); 
-    this._setListeners(); 
-    return this._cardElement; 
+    this._setData();
+    this._setListeners();
+    return this._cardElement;
   }
 }
 
