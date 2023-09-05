@@ -1,0 +1,16 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Mesto: интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки. \r Используется:  \r 1. HTML5  \r 2. CSS3  \r 3. JS\r Цель этой проектной работы - знакомство с DOM.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}
