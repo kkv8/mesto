@@ -1,4 +1,12 @@
 import Card from '../components/Card.js'
+import {
+  popupEditProfile,
+  inputProfileName,
+  profileName,
+  inputAbout,
+  profileDescription,
+  buttonsClose
+} from './constants.js'
 
 export function createNewCard(obj, template, listener) {
   const card = new Card(obj, template, listener);

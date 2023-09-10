@@ -12,7 +12,10 @@ import {
   formEdit, 
   initialCards, 
   cardElements,
-  validationConfig
+  validationConfig,
+  popupAddCard,
+  inputTitle,
+  inputLink
  } from '../utils/constants.js'
 
   import {
@@ -22,7 +25,8 @@ import {
     closePopup,
     openPopup,
     handleEditButtonClick,
-    handleProfileFormSubmit
+    handleProfileFormSubmit,
+    createNewCard
   } from '../utils/utils.js'
 
   import Section from '../components/Section.js'
@@ -58,8 +62,9 @@ cardForm.addEventListener("submit", (evt) => {
     ".card-template_type_default",
     handleCardClick
   );
-  cardForm.reset();
-  defaultCardList.addItem()
+  // cardForm.reset();
+  // newCard.generateCard()
+  defaultCardList.setItem(newCard)
 
 
   closePopup(popupAddCard);
