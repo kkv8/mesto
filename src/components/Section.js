@@ -1,12 +1,14 @@
 
-import { handleCardClick, createNewCard } from "../utils/utils";
+
+
 class Section {
-    constructor ({ data }, containerSelector) {
+    constructor ({ data, renderer }, containerSelector) {
         this._renderedItems = data;
+        this._renderer = renderer;
         this._container = containerSelector
     }
 
-    setItem(element) {
+    addItem(element) {
       this._container.prepend(element);
     }
 
@@ -14,15 +16,11 @@ class Section {
         this._container.innerHTML = '';
       }
 
-    addItem () {
+    renderItems () {
         this._clear
 
         this._renderedItems.forEach(item => {
-            const cardElement = createNewCard(item,
-                  ".card-template_type_default",
-                  handleCardClick)
-           
-            this.setItem(cardElement)
+          this._renderer(item)
             
           });
          

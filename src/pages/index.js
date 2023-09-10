@@ -30,10 +30,27 @@ import {
   } from '../utils/utils.js'
 
   import Section from '../components/Section.js'
-  
 
-const defaultCardList = new Section ({data: initialCards }, cardElements)
-defaultCardList.addItem()
+  ////////
+//   const cardElement = createNewCard(item,
+//     ".card-template_type_default",
+//     handleCardClick)
+
+// this.addItem(cardElement)
+///////////
+
+const defaultCardList = new Section (
+  {data: initialCards,
+  renderer: (cardItem) => {
+    const cardElement = createNewCard(cardItem,
+      ".card-template_type_default",
+      handleCardClick)
+
+      defaultCardList.addItem(cardElement)
+
+  } }, 
+  cardElements)
+defaultCardList.renderItems()
 
 
 popupList.forEach((popup) => {
@@ -64,7 +81,7 @@ cardForm.addEventListener("submit", (evt) => {
   );
   // cardForm.reset();
   // newCard.generateCard()
-  defaultCardList.setItem(newCard)
+  defaultCardList.addItem(newCard)
 
 
   closePopup(popupAddCard);
