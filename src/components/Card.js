@@ -1,3 +1,5 @@
+
+
 class Card {
   constructor({ name, link, alt }, templateSelector, handleCardClick) {
     this._name = name;
