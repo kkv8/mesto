@@ -2,7 +2,6 @@ import '../pages/index.css';
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 
-
 import {
   popupList, 
   buttonsClose, 
@@ -13,15 +12,13 @@ import {
   initialCards, 
   cardElements,
   validationConfig,
-  popupAddCard,
+  // popupAddCard,
   inputTitle,
   inputLink
  } from '../utils/constants.js'
 
   import {
-
     handleCardClick,
-
     closePopup,
     openPopup,
     handleEditButtonClick,
@@ -31,16 +28,9 @@ import {
 
   import Section from '../components/Section.js'
 
-  ////////
-//   const cardElement = createNewCard(item,
-//     ".card-template_type_default",
-//     handleCardClick)
-
-// this.addItem(cardElement)
-///////////
 
 const defaultCardList = new Section (
-  {data: initialCards,
+  {items: initialCards,
   renderer: (cardItem) => {
     const cardElement = createNewCard(cardItem,
       ".card-template_type_default",
@@ -53,24 +43,44 @@ const defaultCardList = new Section (
 defaultCardList.renderItems()
 
 
-popupList.forEach((popup) => {
-  popup.addEventListener("click", function (evt) {
-    if (evt.target === popup) {
-      closePopup(popup);
-    }
-  });
-});
+// popupList.forEach((popup) => {
+//   popup.addEventListener("click", function (evt) {
+//     if (evt.target === popup) {
+//       closePopup(popup);
+//     }
+//   });
+// });
 
-buttonsClose.forEach(function (item) {
-  const popup = item.closest(".popup");
-  item.addEventListener("click", function () {
-    closePopup(popup);
-  });
-});
+// buttonsClose.forEach(function (item) {
+//   const popup = item.closest(".popup");
 
-buttonAdd.addEventListener("click", function () {
-  openPopup(popupAddCard);
-});
+//   item.addEventListener("click", function () {
+//     closePopup(popup);
+//   });
+// });
+
+import Popup from '../components/Popup.js'
+
+///
+const testPopupAdd = new Popup (".popup_type_add-card")
+buttonAdd.addEventListener("click", () => {
+  testPopupAdd.open()
+  testPopupAdd.setEventListeners()
+ 
+})
+
+const testPopupEdit = new Popup (".popup_type_edit-profile")
+popupEditButton.addEventListener("click", () => {
+  testPopupEdit.open()
+  testPopupEdit.setEventListeners()
+})
+//
+
+// buttonAdd.addEventListener("click", function () {
+//   // openPopup(popupAddCard);
+//   const popup = new Popup (".popup_type_add-card")
+//   popup.setEventListeners()
+// });
 
 cardForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
@@ -91,7 +101,7 @@ const formEditNew = new FormValidator(validationConfig, formEdit);
 
 const formAddNew = new FormValidator(validationConfig, cardForm);
 
-popupEditButton.addEventListener("click", handleEditButtonClick);
+// popupEditButton.addEventListener("click", handleEditButtonClick);
 formEdit.addEventListener("submit", handleProfileFormSubmit);
 
 
