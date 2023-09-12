@@ -8,6 +8,8 @@ import {
   buttonsClose
 } from './constants.js'
 
+import PopupWithImage from '../components/PopupWithImage.js'
+
 export function createNewCard(obj, template, listener) {
   const card = new Card(obj, template, listener);
   return card.generateCard();
@@ -27,12 +29,12 @@ export function closePopup(popup) {
   document.removeEventListener("keydown", handleClosePopupByEsc);
 }
 
-export function handleClosePopupByEsc(evt) {
-  if (evt.key === "Escape") {
-    const popupOpened = document.querySelector(".popup_opened");
-    closePopup(popupOpened, buttonsClose);
-  }
-}
+// export function handleClosePopupByEsc(evt) {
+//   if (evt.key === "Escape") {
+//     const popupOpened = document.querySelector(".popup_opened");
+//     closePopup(popupOpened, buttonsClose);
+//   }
+// }
 
 export function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -48,10 +50,9 @@ export const handleEditButtonClick = () => {
 };
 
 export function handleCardClick(name, link, alt) {
-  const popupBigPicture = document.querySelector(".popup_type_big-picture");
-  const popupBigPictureImage = popupBigPicture.querySelector(".big-picture");
-  openPopup(popupBigPicture);
-  popupBigPictureImage.src = link;
-  popupBigPicture.querySelector(".big-picture-title").textContent = name;
-  popupBigPictureImage.alt = name;
+  const popup = new PopupWithImage (".popup_type_big-picture")
+  popup.open(name, link, alt)
+  popup.setEventListeners()
 }
+
+

@@ -60,12 +60,14 @@ defaultCardList.renderItems()
 // });
 
 import Popup from '../components/Popup.js'
+import PopupWithImage from '../components/PopupWithImage';
 
 ///
 const testPopupAdd = new Popup (".popup_type_add-card")
 buttonAdd.addEventListener("click", () => {
   testPopupAdd.open()
   testPopupAdd.setEventListeners()
+ 
  
 })
 
@@ -75,6 +77,9 @@ popupEditButton.addEventListener("click", () => {
   testPopupEdit.setEventListeners()
 })
 //
+
+
+
 
 // buttonAdd.addEventListener("click", function () {
 //   // openPopup(popupAddCard);
