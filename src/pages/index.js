@@ -87,5 +87,5 @@ const formAddNew = new FormValidator(validationConfig, cardForm);
 formAddNew.enableValidation();
 
 buttonAdd.addEventListener("click", () => {
-  popupAdd.open();
+  popupAdd.open ();
 });
