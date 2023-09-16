@@ -7,12 +7,9 @@ export function createNewCard(obj, template, listener) {
   return card.generateCard();
 }
 
-export function renderCard(card, container) {
-  container.prepend(card);
-}
+const popup = new PopupWithImage(".popup_type_big-picture");
+popup.setEventListeners();
 
 export function handleCardClick(name, link) {
-  const popup = new PopupWithImage(".popup_type_big-picture");
   popup.open(name, link);
-  popup.setEventListeners();
 }

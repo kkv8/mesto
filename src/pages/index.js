@@ -22,7 +22,6 @@ import UserInfo from "../components/UserInfo.js";
 
 const defaultCardList = new Section(
   {
-    items: initialCards,
     renderer: (cardItem) => {
       const cardElement = createNewCard(
         cardItem,
@@ -35,16 +34,15 @@ const defaultCardList = new Section(
   },
   cardElements
 );
-defaultCardList.renderItems();
+defaultCardList.renderItems(initialCards);
 
 import PopupWithForm from "../components/PopupWithForm";
 
-const MestoUserInfo = new UserInfo(profileName, profileDescription);
+const mestoUserInfo = new UserInfo(profileName, profileDescription);
 
 const popupEdit = new PopupWithForm(".popup_type_edit-profile", {
-  submitFormCallback: (data, evt) => {
-    evt.preventDefault();
-    MestoUserInfo.setUserInfo(data.name, data.about);
+  submitFormCallback: (data) => {
+    mestoUserInfo.setUserInfo(data.name, data.about);
     popupEdit.close();
   },
 });
@@ -56,14 +54,15 @@ formEditNew.enableValidation();
 
 popupEditButton.addEventListener("click", () => {
   popupEdit.open();
-  const data = MestoUserInfo.getUserInfo();
+  const data = mestoUserInfo.getUserInfo();
   inputProfileName.value = data.name;
   inputAbout.value = data.about;
 });
 
+const newCardSection = new Section({}, cardElements);
+
 const popupAdd = new PopupWithForm(".popup_type_add-card", {
-  submitFormCallback: (data, evt) => {
-    evt.preventDefault();
+  submitFormCallback: (data) => {
     const newData = {
       name: data.name,
       link: data.link,
@@ -75,7 +74,7 @@ const popupAdd = new PopupWithForm(".popup_type_add-card", {
       handleCardClick
     );
 
-    cardElements.prepend(cardElement);
+    newCardSection.addItem(cardElement);
 
     popupAdd.close();
   },
@@ -87,5 +86,5 @@ const formAddNew = new FormValidator(validationConfig, cardForm);
 formAddNew.enableValidation();
 
 buttonAdd.addEventListener("click", () => {
-  popupAdd.open ();
+  popupAdd.open();
 });
