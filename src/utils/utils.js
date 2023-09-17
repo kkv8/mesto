@@ -7,9 +7,9 @@ export function createNewCard(obj, template, listener) {
   return card.generateCard();
 }
 
-const popup = new PopupWithImage(".popup_type_big-picture");
-popup.setEventListeners();
+const popupBigPicture = new PopupWithImage(".popup_type_big-picture");
+popupBigPicture.setEventListeners();
 
 export function handleCardClick(name, link) {
-  popup.open(name, link);
+  popupBigPicture.open(name, link);
 }

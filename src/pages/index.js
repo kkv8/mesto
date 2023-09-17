@@ -59,7 +59,7 @@ popupEditButton.addEventListener("click", () => {
   inputAbout.value = data.about;
 });
 
-const newCardSection = new Section({}, cardElements);
+// const newCardSection = new Section({}, cardElements);
 
 const popupAdd = new PopupWithForm(".popup_type_add-card", {
   submitFormCallback: (data) => {
@@ -74,7 +74,7 @@ const popupAdd = new PopupWithForm(".popup_type_add-card", {
       handleCardClick
     );
 
-    newCardSection.addItem(cardElement);
+    defaultCardList.addItem(cardElement);
 
     popupAdd.close();
   },
