@@ -1,7 +1,10 @@
 class Card {
-  constructor({ name, link}, templateSelector, handleCardClick) {
+  constructor({ name, link, _id}, templateSelector, handleCardClick, handleDelete) {
+    console.log(_id)
     this._name = name;
     this._link = link;
+    this._id = _id;
+    this._handleDelete = handleDelete;
     this._templateSelector = templateSelector;
     this._cardElement = this._getTemplate();
     this._cardElementImage = this._cardElement.querySelector(".element__image");
@@ -25,9 +28,14 @@ class Card {
     return this._cardElement;
   }
 
-  _handleDeleteButtonClick() {
+  _handleClickBtnDelete() {
+    // this._cardElement.remove();
+    // this._cardElement = null;
+    this._handleDelete(this._id)
+  }
+
+  remove () {
     this._cardElement.remove();
-    this._cardElement = null;
   }
 
   _handleLikeClick() {
@@ -38,7 +46,7 @@ class Card {
     this._cardElement
       .querySelector(".trash-icon")
       .addEventListener("click", () => {
-        this._handleDeleteButtonClick()
+        this._handleClickBtnDelete()
       });
 
     this._likeButton.addEventListener("click", () => {

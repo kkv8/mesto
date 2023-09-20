@@ -19,14 +19,34 @@ import { handleCardClick, createNewCard } from "../utils/utils.js";
 
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
+
+const optionsApi = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-75/',
+  headers: {
+    authorization: '7b34e9f6-1b85-4b4d-aa61-8ed0d9a933c7',
+    'Content-type': "application/json",
+    
+  }
+}
+
+const api = new Api(optionsApi)
+
 
 const defaultCardList = new Section(
   {
     renderer: (cardItem) => {
       const cardElement = createNewCard(
-        cardItem,
+        cardItem, 
         ".card-template_type_default",
-        handleCardClick
+        handleCardClick, (id) => {
+          console.log(id)
+          api.deleteCard(id)
+            .then(() => {
+              cardElement.remove()
+            })
+        }
+        
       );
 
       defaultCardList.addItem(cardElement);
@@ -34,7 +54,11 @@ const defaultCardList = new Section(
   },
   cardElements
 );
-defaultCardList.renderItems(initialCards);
+
+api.getAllCards()
+.then((cards) => {
+  defaultCardList.renderItems(cards);
+})
 
 import PopupWithForm from "../components/PopupWithForm";
 
@@ -59,26 +83,37 @@ popupEditButton.addEventListener("click", () => {
   inputAbout.value = data.about;
 });
 
-// const newCardSection = new Section({}, cardElements);
-
 const popupAdd = new PopupWithForm(".popup_type_add-card", {
   submitFormCallback: (data) => {
-    const newData = {
+
+    api.addCard({
       name: data.name,
-      link: data.link,
-    };
+      link: data.link    
+    })
 
-    const cardElement = createNewCard(
-      newData,
-      ".card-template_type_default",
-      handleCardClick
-    );
-
-    defaultCardList.addItem(cardElement);
+    .then((newCard) => {
+      const card = createNewCard(
+          newCard,
+          ".card-template_type_default",
+          handleCardClick, (id) => {
+            console.log(id)
+            api.deleteCard(id)
+              .then(() => {
+                card.remove()
+              })
+          }
+        );
+ 
+        defaultCardList.addItem(card);
+   
+    })
 
     popupAdd.close();
+   
   },
 });
+
+
 
 popupAdd.setEventListeners();
 
@@ -88,3 +123,31 @@ formAddNew.enableValidation();
 buttonAdd.addEventListener("click", () => {
   popupAdd.open();
 });
+
+// const popupDeleteCard = new Popup ('popup_type_delete-card', {
+//   submitFormCallback: (data) => {
+//    console.log(data)
+// }
+// })
+
+// popupDeleteCard.setEventListeners()
+
+// const buttondel = document.querySelector('.trash-icon')
+// buttondel.addEventListener('click', ()=> {
+//   alert(123)
+// })
+
+
+// fetch('https://mesto.nomoreparties.co/v1/cohort-75/cards', {
+//   headers: {
+//     authorization: '7b34e9f6-1b85-4b4d-aa61-8ed0d9a933c7'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((result) => {
+//     console.log(result);
+//   }); 
+
+
+
+

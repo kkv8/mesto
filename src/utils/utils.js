@@ -2,8 +2,8 @@ import Card from "../components/Card.js";
 
 import PopupWithImage from "../components/PopupWithImage.js";
 
-export function createNewCard(obj, template, listener) {
-  const card = new Card(obj, template, listener);
+export function createNewCard(obj, template, listener, del) {
+  const card = new Card(obj, template, listener, del);
   return card.generateCard();
 }
 
