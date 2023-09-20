@@ -1,6 +1,6 @@
 class Card {
   constructor({ name, link, _id}, templateSelector, handleCardClick, handleDelete) {
-    console.log(_id)
+   
     this._name = name;
     this._link = link;
     this._id = _id;

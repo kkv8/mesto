@@ -40,7 +40,7 @@ const defaultCardList = new Section(
         cardItem, 
         ".card-template_type_default",
         handleCardClick, (id) => {
-          console.log(id)
+    
           api.deleteCard(id)
             .then(() => {
               cardElement.remove()
@@ -59,6 +59,24 @@ api.getAllCards()
 .then((cards) => {
   defaultCardList.renderItems(cards);
 })
+
+const profileAvatar = document.querySelector('.profile__avatar')
+
+//////получить инф о профиле
+// api.getProfileInfo()
+// .then((info) => {
+//   console.log(info)
+//   profileName.textContent = info.name
+//   profileDescription.textContent = info.about
+//   profileAvatar.src = info.avatar
+// })
+
+// //////изменить имя профиля
+// api.editProfileInfo({name: 'csdvs', about: 'gdfgsgd'})
+// .then((res) => {
+//   console.log(res)
+// })
+
 
 import PopupWithForm from "../components/PopupWithForm";
 
@@ -96,7 +114,7 @@ const popupAdd = new PopupWithForm(".popup_type_add-card", {
           newCard,
           ".card-template_type_default",
           handleCardClick, (id) => {
-            console.log(id)
+           
             api.deleteCard(id)
               .then(() => {
                 card.remove()
