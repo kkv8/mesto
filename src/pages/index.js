@@ -61,6 +61,7 @@ api.getAllCards()
   defaultCardList.renderItems(cards);
 })
 
+/////листенер на аватар тестовый
 const profileAvatar = document.querySelector('.profile__avatar')
 
 ////получить инф о профиле
@@ -75,44 +76,70 @@ const profileAvatar = document.querySelector('.profile__avatar')
 
 import PopupWithForm from "../components/PopupWithForm";
  
-const mestoUserInfo = new UserInfo(profileName, profileDescription);
+const mestoUserInfo = new UserInfo(profileName, profileDescription, profileAvatar);
 
   api.getProfileInfo()
   .then((info) => {
   profileName.textContent = info.name
  profileDescription.textContent = info.about
+ profileAvatar.src = info.avatar
   })
 
-const popupEdit = new PopupWithForm(".popup_type_edit-profile", {
-  submitFormCallback: (data) => {
-    
-    api.editProfileInfo(
-      { name: data.name,
-      about: data.about })
-
-    .then((res) => {
-      mestoUserInfo.setUserInfo(res.name, res.about)
+  const popupEdit = new PopupWithForm(".popup_type_edit-profile", {
+    submitFormCallback: (data) => {
+      
+      api.editProfileInfo(
+        { name: data.name,
+        about: data.about })
+  
+      .then((res) => {
+        mestoUserInfo.setUserInfo(res.name, res.about)
+      })
+  
+      popupEdit.close();
+    },
+  });
+  
+  popupEdit.setEventListeners();
+  
+  const formEditNew = new FormValidator(validationConfig, formEdit);
+  formEditNew.enableValidation();
+  
+  popupEditButton.addEventListener("click", () => {
+    popupEdit.open();
+  
+    api.getProfileInfo()
+    .then((info) => {
+    inputProfileName.value = info.name
+    inputAbout.value = info.about
     })
+  
+  });
 
-    popupEdit.close();
-  },
-});
+  
+  const popupAvatar = new PopupWithForm('.popup_type_edit-avatar', {
+    submitFormCallback: (data) => {
 
-popupEdit.setEventListeners();
+      api.editProfileAvatar(data)
+      .then((res) => {
+  
+        mestoUserInfo.setUserAvatar(res.avatar)
+      })
+     
 
-const formEditNew = new FormValidator(validationConfig, formEdit);
-formEditNew.enableValidation();
-
-popupEditButton.addEventListener("click", () => {
-  popupEdit.open();
-
-  api.getProfileInfo()
-  .then((info) => {
-  inputProfileName.value = info.name
-  inputAbout.value = info.about
+      popupAvatar.close();
+    }
   })
 
-});
+ 
+  popupAvatar.setEventListeners()
+
+  profileAvatar.addEventListener('click', () => {
+    popupAvatar.open()
+  })
+
+  //////////////////////////
+
 
 const popupAdd = new PopupWithForm(".popup_type_add-card", {
   submitFormCallback: (data) => {

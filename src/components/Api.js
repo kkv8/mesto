@@ -118,11 +118,11 @@ export default class Api {
     }
     // PATCH https://mesto.nomoreparties.co/v1/cohortId/users/me/avatar
 
-    editProfileAvatar(avatar) {
+    editProfileAvatar(data) {
         return fetch(`${this._url}/users/me/avatar`, {
             method: "PATCH",
             headers: this._headers,
-            body: JSON.stringify(avatar)
+            body: JSON.stringify({avatar: data.avatar})
     })
 
     .then((res) => {
