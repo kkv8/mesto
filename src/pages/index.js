@@ -10,9 +10,10 @@ import {
   cardElements,
   validationConfig,
   profileName,
-  profileDescription,
+
   inputProfileName,
   inputAbout,
+  profileDescription,
 } from "../utils/constants.js";
 
 import { handleCardClick, createNewCard } from "../utils/utils.js";
@@ -62,7 +63,7 @@ api.getAllCards()
 
 const profileAvatar = document.querySelector('.profile__avatar')
 
-//////получить инф о профиле
+////получить инф о профиле
 // api.getProfileInfo()
 // .then((info) => {
 //   console.log(info)
@@ -71,20 +72,28 @@ const profileAvatar = document.querySelector('.profile__avatar')
 //   profileAvatar.src = info.avatar
 // })
 
-// //////изменить имя профиля
-// api.editProfileInfo({name: 'csdvs', about: 'gdfgsgd'})
-// .then((res) => {
-//   console.log(res)
-// })
-
 
 import PopupWithForm from "../components/PopupWithForm";
-
+ 
 const mestoUserInfo = new UserInfo(profileName, profileDescription);
+
+  api.getProfileInfo()
+  .then((info) => {
+  profileName.textContent = info.name
+ profileDescription.textContent = info.about
+  })
 
 const popupEdit = new PopupWithForm(".popup_type_edit-profile", {
   submitFormCallback: (data) => {
-    mestoUserInfo.setUserInfo(data.name, data.about);
+    
+    api.editProfileInfo(
+      { name: data.name,
+      about: data.about })
+
+    .then((res) => {
+      mestoUserInfo.setUserInfo(res.name, res.about)
+    })
+
     popupEdit.close();
   },
 });
@@ -96,9 +105,13 @@ formEditNew.enableValidation();
 
 popupEditButton.addEventListener("click", () => {
   popupEdit.open();
-  const data = mestoUserInfo.getUserInfo();
-  inputProfileName.value = data.name;
-  inputAbout.value = data.about;
+
+  api.getProfileInfo()
+  .then((info) => {
+  inputProfileName.value = info.name
+  inputAbout.value = info.about
+  })
+
 });
 
 const popupAdd = new PopupWithForm(".popup_type_add-card", {

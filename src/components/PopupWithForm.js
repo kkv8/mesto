@@ -1,4 +1,5 @@
 import Popup from "./Popup.js";
+import UserInfo from "./UserInfo.js";
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, { submitFormCallback }) {
@@ -20,7 +21,8 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault()
-      this._submitFormCallBack(this._getInputValues())       
+      this._submitFormCallBack(this._getInputValues())   
+      // this._submitFormCallBack()      
     });
   }
 
