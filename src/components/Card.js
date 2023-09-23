@@ -1,15 +1,21 @@
 class Card {
-  constructor({ name, link, _id}, templateSelector, handleCardClick, handleDelete) {
-   
-    this._name = name;
-    this._link = link;
-    this._id = _id;
-    this._handleDelete = handleDelete;
+  constructor({data, handleCardClick, handleTrashIconClick, handleLikeClick, handleLikeDelete}, templateSelector) {
+   this._handleTrashIconClick = handleTrashIconClick
+   this._data = data
+    this._name = data.name;
+    this._link = data.link;
+    this._id = data._id;
+    this._likes = data.likes
+    this._owner = data.owner
+    this._handleLikeClick = handleLikeClick
     this._templateSelector = templateSelector;
+    this._handleLikeDelete = handleLikeDelete
     this._cardElement = this._getTemplate();
     this._cardElementImage = this._cardElement.querySelector(".element__image");
     this._handleCardClick = handleCardClick;
     this._likeButton = this._cardElement.querySelector(".heart-icon");
+    this._likeCounter = this._cardElement.querySelector(".like-counter");
+    this._trashIcon = this._cardElement.querySelector(".trash-icon")
   }
 
   _getTemplate() {
@@ -25,32 +31,46 @@ class Card {
     this._cardElement.querySelector(".element__title").textContent = this._name;
     this._cardElementImage.src = this._link;
     this._cardElementImage.alt = this._name;
+   
     return this._cardElement;
   }
 
-  _handleClickBtnDelete() {
-    // this._cardElement.remove();
-    // this._cardElement = null;
-    this._handleDelete(this._id)
-  }
 
-  remove () {
-    this._cardElement.remove();
-  }
+remove() {
+  this._cardElement.remove()
+}
 
-  _handleLikeClick() {
+
+checkLike() {
+  this._likes.forEach((like) => {
+      if (like._id === 'abad96c31880431690205aa0') {
+          this._likeButton.classList.add('heart-icon_active');
+      }
+  });
+}
+
+  toggleLike  (data) { 
+   this._likes = data.likes
+    this._likeCounter.textContent = this._likes.length
     this._likeButton.classList.toggle("heart-icon_active");
+
   }
+
+
 
   _setListeners() {
-    this._cardElement
-      .querySelector(".trash-icon")
-      .addEventListener("click", () => {
-        this._handleClickBtnDelete()
-      });
-
+ 
+this._trashIcon.addEventListener('click', () => {
+  this._handleTrashIconClick(this._id);
+})
     this._likeButton.addEventListener("click", () => {
-     this._handleLikeClick()
+     if (this._likeButton.classList.contains('heart-icon_active')) {
+      this._handleLikeDelete(this._id)
+     } else {
+      this._handleLikeClick(this._id)
+     }
+
+    
     });
 
     this._cardElementImage.addEventListener("click", () => {
@@ -60,7 +80,14 @@ class Card {
 
   generateCard() {
     this._setData();
+    this.checkLike()
+    this._likeCounter.textContent = this._likes.length
     this._setListeners();
+    if (this._owner._id  !== 'abad96c31880431690205aa0') {
+      this._trashIcon.remove()
+    }
+
+    
     return this._cardElement;
   }
 }

@@ -1,55 +1,79 @@
 import "../pages/index.css";
-import FormValidator from "../components/FormValidator.js";
 
 import {
   buttonAdd,
   cardForm,
   popupEditButton,
   formEdit,
-  initialCards,
   cardElements,
   validationConfig,
   profileName,
-
+  profileAvatar,
   inputProfileName,
   inputAbout,
+  optionsApi,
   profileDescription,
 } from "../utils/constants.js";
 
-import { handleCardClick, createNewCard } from "../utils/utils.js";
-
+import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
+import PopupWithForm from "../components/PopupWithForm";
+import PopupWithImage from '../components/PopupWithImage'
+import Card from "../components/Card";
 
-const optionsApi = {
-  url: 'https://mesto.nomoreparties.co/v1/cohort-75/',
-  headers: {
-    authorization: '7b34e9f6-1b85-4b4d-aa61-8ed0d9a933c7',
-    'Content-type': "application/json",
-    
-  }
+function handleCardClick(name, link) {
+  popupBigPicture.open(name, link);
 }
 
-const api = new Api(optionsApi)
+function createNewCard(data) {
+  const card = new Card({
+    data,
+    handleCardClick, 
 
+    handleTrashIconClick: (id) => {
+      const popupDeleteConfirm = new PopupWithConfirmation('.popup_type_delete-confirmation', {
+        submitFormCallback: () => {
+        api.deleteCard(id)
+        .then(() => {
+          card.remove()
+        })
+       popupDeleteConfirm.close()
+        }
+      })
+      popupDeleteConfirm.setEventListeners()
+      popupDeleteConfirm.open()
+    },
+
+    handleLikeClick: () => {
+      api.putLike(data._id)
+      .then((res) => {
+        console.log(res)
+        card.toggleLike(res)
+      })
+    },
+
+    handleLikeDelete: () => {
+      api.deleteLike(data._id)
+      .then((res) => {
+        console.log(res)
+        card.toggleLike(res)
+      })
+    }
+  }, ".card-template_type_default");
+  return card.generateCard();
+}
+
+const popupBigPicture = new PopupWithImage(".popup_type_big-picture");
+popupBigPicture.setEventListeners();
+
+const api = new Api(optionsApi)
 
 const defaultCardList = new Section(
   {
     renderer: (cardItem) => {
-      const cardElement = createNewCard(
-        cardItem, 
-        ".card-template_type_default",
-        handleCardClick, (id) => {
-    
-          api.deleteCard(id)
-            .then(() => {
-              cardElement.remove()
-            })
-        }
-        
-      );
-
+      const cardElement = createNewCard(cardItem)
       defaultCardList.addItem(cardElement);
     },
   },
@@ -61,21 +85,7 @@ api.getAllCards()
   defaultCardList.renderItems(cards);
 })
 
-/////листенер на аватар тестовый
-const profileAvatar = document.querySelector('.profile__avatar')
 
-////получить инф о профиле
-// api.getProfileInfo()
-// .then((info) => {
-//   console.log(info)
-//   profileName.textContent = info.name
-//   profileDescription.textContent = info.about
-//   profileAvatar.src = info.avatar
-// })
-
-
-import PopupWithForm from "../components/PopupWithForm";
- 
 const mestoUserInfo = new UserInfo(profileName, profileDescription, profileAvatar);
 
   api.getProfileInfo()
@@ -84,6 +94,7 @@ const mestoUserInfo = new UserInfo(profileName, profileDescription, profileAvata
  profileDescription.textContent = info.about
  profileAvatar.src = info.avatar
   })
+
 
   const popupEdit = new PopupWithForm(".popup_type_edit-profile", {
     submitFormCallback: (data) => {
@@ -95,6 +106,8 @@ const mestoUserInfo = new UserInfo(profileName, profileDescription, profileAvata
       .then((res) => {
         mestoUserInfo.setUserInfo(res.name, res.about)
       })
+
+     
   
       popupEdit.close();
     },
@@ -138,8 +151,6 @@ const mestoUserInfo = new UserInfo(profileName, profileDescription, profileAvata
     popupAvatar.open()
   })
 
-  //////////////////////////
-
 
 const popupAdd = new PopupWithForm(".popup_type_add-card", {
   submitFormCallback: (data) => {
@@ -150,17 +161,7 @@ const popupAdd = new PopupWithForm(".popup_type_add-card", {
     })
 
     .then((newCard) => {
-      const card = createNewCard(
-          newCard,
-          ".card-template_type_default",
-          handleCardClick, (id) => {
-           
-            api.deleteCard(id)
-              .then(() => {
-                card.remove()
-              })
-          }
-        );
+      const card = createNewCard(newCard);
  
         defaultCardList.addItem(card);
    
@@ -182,30 +183,4 @@ buttonAdd.addEventListener("click", () => {
   popupAdd.open();
 });
 
-// const popupDeleteCard = new Popup ('popup_type_delete-card', {
-//   submitFormCallback: (data) => {
-//    console.log(data)
-// }
-// })
-
-// popupDeleteCard.setEventListeners()
-
-// const buttondel = document.querySelector('.trash-icon')
-// buttondel.addEventListener('click', ()=> {
-//   alert(123)
-// })
-
-
-// fetch('https://mesto.nomoreparties.co/v1/cohort-75/cards', {
-//   headers: {
-//     authorization: '7b34e9f6-1b85-4b4d-aa61-8ed0d9a933c7'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   }); 
-
-
-
-
+import PopupWithConfirmation from "../components/PopupWithConfirmation";

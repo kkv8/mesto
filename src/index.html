@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Mesto</title>
-        <!-- <link rel="stylesheet" href="./pages/index.css"> -->
     </head>
 
     <body class="content">
@@ -78,6 +77,20 @@
             </div>
         </div>
 
+      
+
+        <div class="popup popup_type_delete-confirmation">
+            <div class="popup__container">
+                <button class="popup__close-button" type="button"></button>
+                <h3 class="popup__title">Вы уверены?</h3>
+                <form name="delete-confirmation" class="popup__form profile-form delete-confirmation-form" novalidate>
+                    
+
+                    <button class="popup__save-button popup__button" type="submit">Да</button>
+                </form>
+            </div>
+        </div>
+
         <div class="popup popup_type_big-picture">
             <div class="popup__picture-container">
                 <button class="popup__close-button" type="button"></button>
@@ -86,13 +99,6 @@
             </div>
         </div>
 
-        <!-- <div class="popup popup_type_delete-card">
-            <div class="popup__container">
-                <button class="popup__close-button" type="button"></button>
-                <h3 class="popup__title">Вы уверены?</h3>
-                <button class="popup__save-button popup__button" type="submit">Да</button>
-            </div>
-        </div> -->
     
         <template class='card-template_type_default' id="card-template">
                 <article class="element">
@@ -101,15 +107,13 @@
                     <h2 class="element__title"></h2>
                     <div>
                         <button type="button" class="heart-icon"></button>
-                        <p class="like-counter">123</p>
+                        <p class="like-counter"></p>
                     </div>
                     
                 </article>
         </template>
-        <!-- <script src="./scripts/cards.js"></script> -->
         
         <script type="module" src="./dist/main.becbcd452987e05e703f.js"></script>
-        <!-- <script type="module" src="./scripts/index.js"></script> -->
         
     </body>
 

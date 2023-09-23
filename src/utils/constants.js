@@ -45,7 +45,7 @@ export const cardElements = document.querySelector(".elements");
 export const cardForm = document.querySelector(".card-form");
 export const inputLink = document.querySelector(".popup__input_type_link");
 export const inputTitle = document.querySelector(".popup__input_type_title");
-
+export const profileAvatar = document.querySelector('.profile__avatar')
 export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -54,5 +54,12 @@ export const validationConfig = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
-
+export const optionsApi = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-75/',
+  headers: {
+    authorization: '7b34e9f6-1b85-4b4d-aa61-8ed0d9a933c7',
+    'Content-type': "application/json",
+    
+  }
+}
 export const popupList = Array.from(document.querySelectorAll(".popup"));

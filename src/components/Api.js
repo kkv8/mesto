@@ -1,6 +1,6 @@
 
 // GET https://mesto.nomoreparties.co/v1/cohort-75/cards 
-// Токен: 7b34e9f6-1b85-4b4d-aa61-8ed0d9a933c7
+
 // DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/cardId
 export default class Api {
     constructor({ url, headers }) {
@@ -8,7 +8,7 @@ export default class Api {
         this._headers = headers
     }
 
-    //получить все карточки 
+
     getAllCards() {
         return fetch(`${this._url}/cards`, {
             method: 'GET',
@@ -29,7 +29,7 @@ export default class Api {
 
     }
 
-    //добавить карточку
+
     addCard(cardsData) {
         return fetch(`${this._url}/cards`, {
             method: "POST",
@@ -51,7 +51,7 @@ export default class Api {
     }
 
 // DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/cardId
-    //удаление карточки 
+
     deleteCard(cardId) {
         return fetch(`${this._url}/cards/${cardId}`, {
             method: "DELETE",
@@ -71,7 +71,7 @@ export default class Api {
     })
     }
 
-////////редакт инф о пользователе 
+
 // GET https://nomoreparties.co/v1/cohortId/users/me 
     getProfileInfo() {
         return fetch(`${this._url}/users/me`, {
@@ -123,6 +123,49 @@ export default class Api {
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({avatar: data.avatar})
+    })
+
+    .then((res) => {
+        if(res.ok) {
+            return res.json()
+        }
+
+        throw new Error('Что-то пошло не так')
+    })
+
+    .catch((err) => {
+        console.log(err)
+    })
+
+    }
+
+    // PUT https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
+    
+    putLike(cardId) {
+        return fetch(`${this._url}/cards/${cardId}/likes`, {
+            method: "PUT",
+            headers: this._headers
+
+    })
+
+    .then((res) => {
+        if(res.ok) {
+            return res.json()
+        }
+
+        throw new Error('Что-то пошло не так')
+    })
+
+    .catch((err) => {
+        console.log(err)
+    })
+
+    }
+
+    deleteLike(cardId) {
+        return fetch(`${this._url}/cards/${cardId}/likes`, {
+            method: "DELETE",
+            headers: this._headers
     })
 
     .then((res) => {
