@@ -6,6 +6,7 @@ class Card {
       handleTrashIconClick,
       handleLikeClick,
       handleLikeDelete,
+      userId,
     },
     templateSelector
   ) {
@@ -16,7 +17,7 @@ class Card {
     this._id = data._id;
     this._likes = data.likes;
     this._owner = data.owner;
-    // this._userId = userId;
+    this._userId = userId;
     this._handleLikeClick = handleLikeClick;
     this._templateSelector = templateSelector;
     this._handleLikeDelete = handleLikeDelete;
@@ -52,11 +53,14 @@ class Card {
 
   checkLike() {
     this._likes.forEach((like) => {
-      // if (like._id === this._userId) {
-      if (like._id === "abad96c31880431690205aa0") {
+      if (like._id === this._userId) {
         this._likeButton.classList.add("heart-icon_active");
       }
     });
+  }
+
+  _handleDeleteClick() {
+    this._handleTrashIconClick(this._id);
   }
 
   toggleLike(data) {
@@ -67,7 +71,7 @@ class Card {
 
   _setListeners() {
     this._trashIcon.addEventListener("click", () => {
-      this._handleTrashIconClick(this._id);
+      this._handleDeleteClick();
     });
     this._likeButton.addEventListener("click", () => {
       if (this._likeButton.classList.contains("heart-icon_active")) {
@@ -87,8 +91,8 @@ class Card {
     this.checkLike();
     this._likeCounter.textContent = this._likes.length;
     this._setListeners();
-    // if (this._owner._id !== this._userId) {
-    if (this._owner._id !== "abad96c31880431690205aa0") {
+
+    if (this._owner._id !== this._userId) {
       this._trashIcon.remove();
     }
 

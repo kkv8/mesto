@@ -20,159 +20,183 @@ import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import PopupWithForm from "../components/PopupWithForm";
-import PopupWithImage from '../components/PopupWithImage'
+import PopupWithImage from "../components/PopupWithImage";
 import Card from "../components/Card";
+import PopupWithConfirmation from "../components/PopupWithConfirmation";
+
+const api = new Api(optionsApi);
+let userId;
+Promise.all([api.getProfileInfo(), api.getAllCards()])
+  .then(([info, cards]) => {
+    userId = info._id;
+    mestoUserInfo.setId(info._id);
+    mestoUserInfo.setUserInfo(info.name, info.about);
+    mestoUserInfo.setUserAvatar(info.avatar);
+
+    defaultCardList.renderItems(cards);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 function handleCardClick(name, link) {
   popupBigPicture.open(name, link);
 }
 
 function createNewCard(data) {
-  const card = new Card({
-    data,
-    handleCardClick, 
+  const card = new Card(
+    {
+      data,
+      handleCardClick,
 
-    handleTrashIconClick: (id) => {
-      const popupDeleteConfirm = new PopupWithConfirmation('.popup_type_delete-confirmation', {
-        submitFormCallback: () => {
-        api.deleteCard(id)
-        .then(() => {
-          card.remove()
-        })
-       popupDeleteConfirm.close()
-        }
-      })
-      popupDeleteConfirm.setEventListeners()
-      popupDeleteConfirm.open()
+      handleTrashIconClick: (id) => {
+        popupDeleteConfirm.open();
+        popupDeleteConfirm.setSubmit(() => {
+          api
+            .deleteCard(id)
+            .then(() => {
+              card.remove();
+              popupDeleteConfirm.close();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+      },
+
+      handleLikeClick: () => {
+        api
+          .putLike(data._id)
+          .then((res) => {
+            console.log(res);
+            card.toggleLike(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+
+      handleLikeDelete: () => {
+        api
+          .deleteLike(data._id)
+          .then((res) => {
+            console.log(res);
+            card.toggleLike(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+
+      userId,
     },
-
-    handleLikeClick: () => {
-      api.putLike(data._id)
-      .then((res) => {
-        console.log(res)
-        card.toggleLike(res)
-      })
-    },
-
-    handleLikeDelete: () => {
-      api.deleteLike(data._id)
-      .then((res) => {
-        console.log(res)
-        card.toggleLike(res)
-      })
-    }
-  }, ".card-template_type_default");
+    ".card-template_type_default"
+  );
   return card.generateCard();
 }
+
+const popupDeleteConfirm = new PopupWithConfirmation(
+  ".popup_type_delete-confirmation"
+);
+popupDeleteConfirm.setEventListeners();
 
 const popupBigPicture = new PopupWithImage(".popup_type_big-picture");
 popupBigPicture.setEventListeners();
 
-const api = new Api(optionsApi)
-
 const defaultCardList = new Section(
-  {
-    renderer: (cardItem) => {
-      const cardElement = createNewCard(cardItem)
-      defaultCardList.addItem(cardElement);
-    },
+  (item) => {
+    const cardElement = createNewCard(item);
+    defaultCardList.addItem(cardElement);
   },
+
   cardElements
 );
 
-api.getAllCards()
-.then((cards) => {
-  defaultCardList.renderItems(cards);
-})
+const mestoUserInfo = new UserInfo(
+  profileName,
+  profileDescription,
+  profileAvatar
+);
 
-
-const mestoUserInfo = new UserInfo(profileName, profileDescription, profileAvatar);
-
-  api.getProfileInfo()
-  .then((info) => {
-  profileName.textContent = info.name
- profileDescription.textContent = info.about
- profileAvatar.src = info.avatar
-  })
-
-
-  const popupEdit = new PopupWithForm(".popup_type_edit-profile", {
-    submitFormCallback: (data) => {
-      
-      api.editProfileInfo(
-        { name: data.name,
-        about: data.about })
-  
-      .then((res) => {
-        mestoUserInfo.setUserInfo(res.name, res.about)
-      })
-
-     
-  
-      popupEdit.close();
-    },
-  });
-  
-  popupEdit.setEventListeners();
-  
-  const formEditNew = new FormValidator(validationConfig, formEdit);
-  formEditNew.enableValidation();
-  
-  popupEditButton.addEventListener("click", () => {
-    popupEdit.open();
-  
-    api.getProfileInfo()
-    .then((info) => {
-    inputProfileName.value = info.name
-    inputAbout.value = info.about
-    })
-  
-  });
-
-  
-  const popupAvatar = new PopupWithForm('.popup_type_edit-avatar', {
-    submitFormCallback: (data) => {
-
-      api.editProfileAvatar(data)
-      .then((res) => {
-  
-        mestoUserInfo.setUserAvatar(res.avatar)
-      })
-     
-
-      popupAvatar.close();
-    }
-  })
-
- 
-  popupAvatar.setEventListeners()
-
-  profileAvatar.addEventListener('click', () => {
-    popupAvatar.open()
-  })
-
-
-const popupAdd = new PopupWithForm(".popup_type_add-card", {
+const popupEdit = new PopupWithForm(".popup_type_edit-profile", {
   submitFormCallback: (data) => {
+    api
+      .editProfileInfo({ name: data.name, about: data.about })
 
-    api.addCard({
-      name: data.name,
-      link: data.link    
-    })
+      .then((res) => {
+        mestoUserInfo.setUserInfo(res.name, res.about);
+      })
 
-    .then((newCard) => {
-      const card = createNewCard(newCard);
- 
-        defaultCardList.addItem(card);
-   
-    })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    popupAdd.close();
-   
+    popupEdit.close();
   },
 });
 
+popupEdit.setEventListeners();
 
+const formEditNew = new FormValidator(validationConfig, formEdit);
+formEditNew.enableValidation();
+
+popupEditButton.addEventListener("click", () => {
+  popupEdit.open();
+
+  api
+    .getProfileInfo()
+    .then((info) => {
+      inputProfileName.value = info.name;
+      inputAbout.value = info.about;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+const popupAvatar = new PopupWithForm(".popup_type_edit-avatar", {
+  submitFormCallback: (data) => {
+    api
+      .editProfileAvatar(data)
+      .then((res) => {
+        mestoUserInfo.setUserAvatar(res.avatar);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    popupAvatar.close();
+  },
+});
+
+popupAvatar.setEventListeners();
+
+document
+  .querySelector(".profile__avatar-edit-button")
+  .addEventListener("click", () => {
+    popupAvatar.open();
+  });
+
+const popupAdd = new PopupWithForm(".popup_type_add-card", {
+  submitFormCallback: (data) => {
+    api
+      .addCard({
+        name: data.name,
+        link: data.link,
+      })
+
+      .then((newCard) => {
+        const card = createNewCard(newCard);
+
+        defaultCardList.addItem(card);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    popupAdd.close();
+  },
+});
 
 popupAdd.setEventListeners();
 
@@ -182,5 +206,3 @@ formAddNew.enableValidation();
 buttonAdd.addEventListener("click", () => {
   popupAdd.open();
 });
-
-import PopupWithConfirmation from "../components/PopupWithConfirmation";
