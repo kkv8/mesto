@@ -36,3 +36,4 @@
 @import url(../blocks/popup/__button/_disabled/popup__button_disabled.css);
 @import url(../blocks/popup/_type/_big-picture/popup_type_big-picture.css);
 @import url(../blocks/like-counter/like-counter.css);
+@import url(../blocks/profile/__avatar-edit-button/profile__avatar-edit-button.css);
