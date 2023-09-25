@@ -125,13 +125,14 @@ const popupEdit = new PopupWithForm(".popup_type_edit-profile", {
 
       .then((res) => {
         mestoUserInfo.setUserInfo(res.name, res.about);
+        popupEdit.close();
       })
 
       .catch((err) => {
         console.log(err);
       });
 
-    popupEdit.close();
+    
   },
 });
 
@@ -142,16 +143,10 @@ formEditNew.enableValidation();
 
 popupEditButton.addEventListener("click", () => {
   popupEdit.open();
-
-  api
-    .getProfileInfo()
-    .then((info) => {
+  const info = mestoUserInfo.getUserInfo()
       inputProfileName.value = info.name;
       inputAbout.value = info.about;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+   
 });
 
 const popupAvatar = new PopupWithForm(".popup_type_edit-avatar", {
@@ -160,12 +155,13 @@ const popupAvatar = new PopupWithForm(".popup_type_edit-avatar", {
       .editProfileAvatar(data)
       .then((res) => {
         mestoUserInfo.setUserAvatar(res.avatar);
+        popupAvatar.close();
       })
       .catch((err) => {
         console.log(err);
       });
 
-    popupAvatar.close();
+   
   },
 });
 
@@ -189,12 +185,13 @@ const popupAdd = new PopupWithForm(".popup_type_add-card", {
         const card = createNewCard(newCard);
 
         defaultCardList.addItem(card);
+        popupAdd.close();
       })
       .catch((err) => {
         console.log(err);
       });
 
-    popupAdd.close();
+   
   },
 });
 
